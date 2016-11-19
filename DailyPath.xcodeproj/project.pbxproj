@@ -12,8 +12,8 @@
 		D912C3E81DDFC78500ACA72C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D912C3E61DDFC78500ACA72C /* Main.storyboard */; };
 		D912C3EA1DDFC78500ACA72C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D912C3E91DDFC78500ACA72C /* Assets.xcassets */; };
 		D912C3ED1DDFC78500ACA72C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D912C3EB1DDFC78500ACA72C /* LaunchScreen.storyboard */; };
-		D912C3F81DDFC78500ACA72C /* MapStuffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912C3F71DDFC78500ACA72C /* MapStuffTests.swift */; };
-		D912C4031DDFC78500ACA72C /* MapStuffUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912C4021DDFC78500ACA72C /* MapStuffUITests.swift */; };
+		D912C3F81DDFC78500ACA72C /* DailyPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912C3F71DDFC78500ACA72C /* DailyPathTests.swift */; };
+		D912C4031DDFC78500ACA72C /* DailyPathUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912C4021DDFC78500ACA72C /* DailyPathUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,18 +34,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D912C3DF1DDFC78400ACA72C /* MapStuff.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapStuff.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D912C3DF1DDFC78400ACA72C /* DailyPath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyPath.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D912C3E21DDFC78400ACA72C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D912C3E41DDFC78400ACA72C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D912C3E71DDFC78500ACA72C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D912C3E91DDFC78500ACA72C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D912C3EC1DDFC78500ACA72C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D912C3EE1DDFC78500ACA72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D912C3F31DDFC78500ACA72C /* MapStuffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapStuffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D912C3F71DDFC78500ACA72C /* MapStuffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStuffTests.swift; sourceTree = "<group>"; };
+		D912C3F31DDFC78500ACA72C /* DailyPath.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyPath.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D912C3F71DDFC78500ACA72C /* DailyPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPathTests.swift; sourceTree = "<group>"; };
 		D912C3F91DDFC78500ACA72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D912C3FE1DDFC78500ACA72C /* MapStuffUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapStuffUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D912C4021DDFC78500ACA72C /* MapStuffUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStuffUITests.swift; sourceTree = "<group>"; };
+		D912C3FE1DDFC78500ACA72C /* DailyPath.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyPath.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D912C4021DDFC78500ACA72C /* DailyPathUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPathUITests.swift; sourceTree = "<group>"; };
 		D912C4041DDFC78500ACA72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,9 +77,9 @@
 		D912C3D61DDFC78400ACA72C = {
 			isa = PBXGroup;
 			children = (
-				D912C3E11DDFC78400ACA72C /* MapStuff */,
-				D912C3F61DDFC78500ACA72C /* MapStuffTests */,
-				D912C4011DDFC78500ACA72C /* MapStuffUITests */,
+				D912C3E11DDFC78400ACA72C /* DailyPath */,
+				D912C3F61DDFC78500ACA72C /* DailyPathTests */,
+				D912C4011DDFC78500ACA72C /* DailyPathUITests */,
 				D912C3E01DDFC78400ACA72C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,14 +87,14 @@
 		D912C3E01DDFC78400ACA72C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D912C3DF1DDFC78400ACA72C /* MapStuff.app */,
-				D912C3F31DDFC78500ACA72C /* MapStuffTests.xctest */,
-				D912C3FE1DDFC78500ACA72C /* MapStuffUITests.xctest */,
+				D912C3DF1DDFC78400ACA72C /* DailyPath.app */,
+				D912C3F31DDFC78500ACA72C /* DailyPath.xctest */,
+				D912C3FE1DDFC78500ACA72C /* DailyPath.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D912C3E11DDFC78400ACA72C /* MapStuff */ = {
+		D912C3E11DDFC78400ACA72C /* DailyPath */ = {
 			isa = PBXGroup;
 			children = (
 				D912C3E21DDFC78400ACA72C /* AppDelegate.swift */,
@@ -104,33 +104,36 @@
 				D912C3EB1DDFC78500ACA72C /* LaunchScreen.storyboard */,
 				D912C3EE1DDFC78500ACA72C /* Info.plist */,
 			);
+			name = DailyPath;
 			path = MapStuff;
 			sourceTree = "<group>";
 		};
-		D912C3F61DDFC78500ACA72C /* MapStuffTests */ = {
+		D912C3F61DDFC78500ACA72C /* DailyPathTests */ = {
 			isa = PBXGroup;
 			children = (
-				D912C3F71DDFC78500ACA72C /* MapStuffTests.swift */,
+				D912C3F71DDFC78500ACA72C /* DailyPathTests.swift */,
 				D912C3F91DDFC78500ACA72C /* Info.plist */,
 			);
+			name = DailyPathTests;
 			path = MapStuffTests;
 			sourceTree = "<group>";
 		};
-		D912C4011DDFC78500ACA72C /* MapStuffUITests */ = {
+		D912C4011DDFC78500ACA72C /* DailyPathUITests */ = {
 			isa = PBXGroup;
 			children = (
-				D912C4021DDFC78500ACA72C /* MapStuffUITests.swift */,
+				D912C4021DDFC78500ACA72C /* DailyPathUITests.swift */,
 				D912C4041DDFC78500ACA72C /* Info.plist */,
 			);
+			name = DailyPathUITests;
 			path = MapStuffUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D912C3DE1DDFC78400ACA72C /* MapStuff */ = {
+		D912C3DE1DDFC78400ACA72C /* DailyPath */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D912C4071DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "MapStuff" */;
+			buildConfigurationList = D912C4071DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "DailyPath" */;
 			buildPhases = (
 				D912C3DB1DDFC78400ACA72C /* Sources */,
 				D912C3DC1DDFC78400ACA72C /* Frameworks */,
@@ -140,14 +143,14 @@
 			);
 			dependencies = (
 			);
-			name = MapStuff;
+			name = DailyPath;
 			productName = MapStuff;
-			productReference = D912C3DF1DDFC78400ACA72C /* MapStuff.app */;
+			productReference = D912C3DF1DDFC78400ACA72C /* DailyPath.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D912C3F21DDFC78500ACA72C /* MapStuffTests */ = {
+		D912C3F21DDFC78500ACA72C /* DailyPathTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D912C40A1DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "MapStuffTests" */;
+			buildConfigurationList = D912C40A1DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "DailyPathTests" */;
 			buildPhases = (
 				D912C3EF1DDFC78500ACA72C /* Sources */,
 				D912C3F01DDFC78500ACA72C /* Frameworks */,
@@ -158,14 +161,14 @@
 			dependencies = (
 				D912C3F51DDFC78500ACA72C /* PBXTargetDependency */,
 			);
-			name = MapStuffTests;
+			name = DailyPathTests;
 			productName = MapStuffTests;
-			productReference = D912C3F31DDFC78500ACA72C /* MapStuffTests.xctest */;
+			productReference = D912C3F31DDFC78500ACA72C /* DailyPath.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D912C3FD1DDFC78500ACA72C /* MapStuffUITests */ = {
+		D912C3FD1DDFC78500ACA72C /* DailyPathUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D912C40D1DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "MapStuffUITests" */;
+			buildConfigurationList = D912C40D1DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "DailyPathUITests" */;
 			buildPhases = (
 				D912C3FA1DDFC78500ACA72C /* Sources */,
 				D912C3FB1DDFC78500ACA72C /* Frameworks */,
@@ -176,9 +179,9 @@
 			dependencies = (
 				D912C4001DDFC78500ACA72C /* PBXTargetDependency */,
 			);
-			name = MapStuffUITests;
+			name = DailyPathUITests;
 			productName = MapStuffUITests;
-			productReference = D912C3FE1DDFC78500ACA72C /* MapStuffUITests.xctest */;
+			productReference = D912C3FE1DDFC78500ACA72C /* DailyPath.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -204,7 +207,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D912C3DA1DDFC78400ACA72C /* Build configuration list for PBXProject "MapStuff" */;
+			buildConfigurationList = D912C3DA1DDFC78400ACA72C /* Build configuration list for PBXProject "DailyPath" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -217,9 +220,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D912C3DE1DDFC78400ACA72C /* MapStuff */,
-				D912C3F21DDFC78500ACA72C /* MapStuffTests */,
-				D912C3FD1DDFC78500ACA72C /* MapStuffUITests */,
+				D912C3DE1DDFC78400ACA72C /* DailyPath */,
+				D912C3F21DDFC78500ACA72C /* DailyPathTests */,
+				D912C3FD1DDFC78500ACA72C /* DailyPathUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -265,7 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D912C3F81DDFC78500ACA72C /* MapStuffTests.swift in Sources */,
+				D912C3F81DDFC78500ACA72C /* DailyPathTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D912C4031DDFC78500ACA72C /* MapStuffUITests.swift in Sources */,
+				D912C4031DDFC78500ACA72C /* DailyPathUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,12 +285,12 @@
 /* Begin PBXTargetDependency section */
 		D912C3F51DDFC78500ACA72C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D912C3DE1DDFC78400ACA72C /* MapStuff */;
+			target = D912C3DE1DDFC78400ACA72C /* DailyPath */;
 			targetProxy = D912C3F41DDFC78500ACA72C /* PBXContainerItemProxy */;
 		};
 		D912C4001DDFC78500ACA72C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D912C3DE1DDFC78400ACA72C /* MapStuff */;
+			target = D912C3DE1DDFC78400ACA72C /* DailyPath */;
 			targetProxy = D912C3FF1DDFC78500ACA72C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -401,8 +404,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MapStuff/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.MapStuff;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.DailyPath;
+				PRODUCT_NAME = DailyPath;
 			};
 			name = Debug;
 		};
@@ -412,8 +415,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MapStuff/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.MapStuff;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.DailyPath;
+				PRODUCT_NAME = DailyPath;
 			};
 			name = Release;
 		};
@@ -424,8 +427,8 @@
 				INFOPLIST_FILE = MapStuffTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.MapStuffTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MapStuff.app/MapStuff";
+				PRODUCT_NAME = DailyPath;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailyPath.app/DailyPath";
 			};
 			name = Debug;
 		};
@@ -436,8 +439,8 @@
 				INFOPLIST_FILE = MapStuffTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.MapStuffTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MapStuff.app/MapStuff";
+				PRODUCT_NAME = DailyPath;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailyPath.app/DailyPath";
 			};
 			name = Release;
 		};
@@ -447,7 +450,7 @@
 				INFOPLIST_FILE = MapStuffUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.MapStuffUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DailyPath;
 				TEST_TARGET_NAME = MapStuff;
 				USES_XCTRUNNER = YES;
 			};
@@ -459,7 +462,7 @@
 				INFOPLIST_FILE = MapStuffUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.MapStuffUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DailyPath;
 				TEST_TARGET_NAME = MapStuff;
 				USES_XCTRUNNER = YES;
 			};
@@ -468,7 +471,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D912C3DA1DDFC78400ACA72C /* Build configuration list for PBXProject "MapStuff" */ = {
+		D912C3DA1DDFC78400ACA72C /* Build configuration list for PBXProject "DailyPath" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D912C4051DDFC78500ACA72C /* Debug */,
@@ -477,29 +480,32 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D912C4071DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "MapStuff" */ = {
+		D912C4071DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "DailyPath" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D912C4081DDFC78500ACA72C /* Debug */,
 				D912C4091DDFC78500ACA72C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		D912C40A1DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "MapStuffTests" */ = {
+		D912C40A1DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "DailyPathTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D912C40B1DDFC78500ACA72C /* Debug */,
 				D912C40C1DDFC78500ACA72C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		D912C40D1DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "MapStuffUITests" */ = {
+		D912C40D1DDFC78500ACA72C /* Build configuration list for PBXNativeTarget "DailyPathUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D912C40E1DDFC78500ACA72C /* Debug */,
 				D912C40F1DDFC78500ACA72C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

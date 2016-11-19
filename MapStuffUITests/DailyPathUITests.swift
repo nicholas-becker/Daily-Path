@@ -1,14 +1,14 @@
 //
-//  MapStuffUITests.swift
-//  MapStuffUITests
+//  DailyPathUITests.swift
+//  DailyPathUITests
 //
-//  Created by Lakin Ragains on 11/18/16.
+//  Created by Jeffrey Becker on 11/18/16.
 //  Copyright © 2016 Team Tinker. All rights reserved.
 //
 
 import XCTest
 
-class MapStuffUITests: XCTestCase {
+class DailyPathUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()

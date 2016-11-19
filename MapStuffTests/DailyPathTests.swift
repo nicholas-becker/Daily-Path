@@ -1,13 +1,13 @@
 //
-//  MapStuffTests.swift
-//  MapStuffTests
+//  DailyPathTests.swift
+//  DailyPathTests
 //
-//  Created by Lakin Ragains on 11/18/16.
+//  Created by Jeffrey Becker on 11/18/16.
 //  Copyright © 2016 Team Tinker. All rights reserved.
 //
 
 import XCTest
-@testable import MapStuff
+@testable import DailyPath
 
 class MapStuffTests: XCTestCase {
     
