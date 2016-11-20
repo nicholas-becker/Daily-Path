@@ -16,23 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
-            let locationManager = CLLocationManager()
-            locationManager.requestAlwaysAuthorization()
-            locationManager.desiredAccuracy = 5
-            locationManager.distanceFilter = 20
-            
-            let viewController = window?.rootViewController as! ViewController
-            locationManager.delegate = viewController
-            viewController.locationManager = locationManager
-        }
-        if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
-            return false
-        }
-        
-        // start this when the user selects option to begin new path
-        //locationManager.startMonitoringSignificantLocationChanges()
-        
         return true
     }
 

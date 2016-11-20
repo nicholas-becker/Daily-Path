@@ -14,6 +14,7 @@
 		D912C3ED1DDFC78500ACA72C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D912C3EB1DDFC78500ACA72C /* LaunchScreen.storyboard */; };
 		D912C3F81DDFC78500ACA72C /* DailyPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912C3F71DDFC78500ACA72C /* DailyPathTests.swift */; };
 		D912C4031DDFC78500ACA72C /* DailyPathUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912C4021DDFC78500ACA72C /* DailyPathUITests.swift */; };
+		D9DB2A6B1DE23BBF0044BF7E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DB2A6A1DE23BBF0044BF7E /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,31 +23,32 @@
 			containerPortal = D912C3D71DDFC78400ACA72C /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D912C3DE1DDFC78400ACA72C;
-			remoteInfo = MapStuff;
+			remoteInfo = DailyPath;
 		};
 		D912C3FF1DDFC78500ACA72C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D912C3D71DDFC78400ACA72C /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D912C3DE1DDFC78400ACA72C;
-			remoteInfo = MapStuff;
+			remoteInfo = DailyPath;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		D912C3DF1DDFC78400ACA72C /* DailyPath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyPath.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D912C3E21DDFC78400ACA72C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D912C3E41DDFC78400ACA72C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D912C3E21DDFC78400ACA72C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "/Users/lakinragains/Desktop/Jeffrey_MobileApps/Daily-Path/DailyPath/AppDelegate.swift"; sourceTree = "<absolute>"; };
+		D912C3E41DDFC78400ACA72C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "/Users/lakinragains/Desktop/Jeffrey_MobileApps/Daily-Path/DailyPath/ViewController.swift"; sourceTree = "<absolute>"; };
 		D912C3E71DDFC78500ACA72C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D912C3E91DDFC78500ACA72C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D912C3EC1DDFC78500ACA72C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D912C3EE1DDFC78500ACA72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D912C3EE1DDFC78500ACA72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "/Users/lakinragains/Desktop/Jeffrey_MobileApps/Daily-Path/DailyPath/Info.plist"; sourceTree = "<absolute>"; };
 		D912C3F31DDFC78500ACA72C /* DailyPath.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyPath.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D912C3F71DDFC78500ACA72C /* DailyPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPathTests.swift; sourceTree = "<group>"; };
 		D912C3F91DDFC78500ACA72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D912C3FE1DDFC78500ACA72C /* DailyPath.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyPath.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D912C4021DDFC78500ACA72C /* DailyPathUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPathUITests.swift; sourceTree = "<group>"; };
-		D912C4041DDFC78500ACA72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D912C4021DDFC78500ACA72C /* DailyPathUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DailyPathUITests.swift; path = DailyPathUITests/DailyPathUITests.swift; sourceTree = "<group>"; };
+		D912C4041DDFC78500ACA72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = DailyPathUITests/Info.plist; sourceTree = "<group>"; };
+		D9DB2A6A1DE23BBF0044BF7E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		D912C3D61DDFC78400ACA72C = {
 			isa = PBXGroup;
 			children = (
+				D9DB2A6A1DE23BBF0044BF7E /* Default-568h@2x.png */,
 				D912C3E11DDFC78400ACA72C /* DailyPath */,
 				D912C3F61DDFC78500ACA72C /* DailyPathTests */,
 				D912C4011DDFC78500ACA72C /* DailyPathUITests */,
@@ -104,8 +107,7 @@
 				D912C3EB1DDFC78500ACA72C /* LaunchScreen.storyboard */,
 				D912C3EE1DDFC78500ACA72C /* Info.plist */,
 			);
-			name = DailyPath;
-			path = MapStuff;
+			path = DailyPath;
 			sourceTree = "<group>";
 		};
 		D912C3F61DDFC78500ACA72C /* DailyPathTests */ = {
@@ -114,8 +116,7 @@
 				D912C3F71DDFC78500ACA72C /* DailyPathTests.swift */,
 				D912C3F91DDFC78500ACA72C /* Info.plist */,
 			);
-			name = DailyPathTests;
-			path = MapStuffTests;
+			path = DailyPathTests;
 			sourceTree = "<group>";
 		};
 		D912C4011DDFC78500ACA72C /* DailyPathUITests */ = {
@@ -125,7 +126,7 @@
 				D912C4041DDFC78500ACA72C /* Info.plist */,
 			);
 			name = DailyPathUITests;
-			path = MapStuffUITests;
+			path = DailyPathDailyPathUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,7 +145,7 @@
 			dependencies = (
 			);
 			name = DailyPath;
-			productName = MapStuff;
+			productName = DailyPath;
 			productReference = D912C3DF1DDFC78400ACA72C /* DailyPath.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -162,7 +163,7 @@
 				D912C3F51DDFC78500ACA72C /* PBXTargetDependency */,
 			);
 			name = DailyPathTests;
-			productName = MapStuffTests;
+			productName = DailyPathTests;
 			productReference = D912C3F31DDFC78500ACA72C /* DailyPath.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -180,7 +181,7 @@
 				D912C4001DDFC78500ACA72C /* PBXTargetDependency */,
 			);
 			name = DailyPathUITests;
-			productName = MapStuffUITests;
+			productName = DailyPathUITests;
 			productReference = D912C3FE1DDFC78500ACA72C /* DailyPath.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
@@ -233,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D912C3ED1DDFC78500ACA72C /* LaunchScreen.storyboard in Resources */,
+				D9DB2A6B1DE23BBF0044BF7E /* Default-568h@2x.png in Resources */,
 				D912C3EA1DDFC78500ACA72C /* Assets.xcassets in Resources */,
 				D912C3E81DDFC78500ACA72C /* Main.storyboard in Resources */,
 			);
@@ -302,7 +304,8 @@
 				D912C3E71DDFC78500ACA72C /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
+			path = "/Users/lakinragains/Desktop/Jeffrey_MobileApps/Daily-Path/DailyPath";
+			sourceTree = "<absolute>";
 		};
 		D912C3EB1DDFC78500ACA72C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -310,7 +313,8 @@
 				D912C3EC1DDFC78500ACA72C /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
+			path = "/Users/lakinragains/Desktop/Jeffrey_MobileApps/Daily-Path/DailyPath";
+			sourceTree = "<absolute>";
 		};
 /* End PBXVariantGroup section */
 
@@ -402,7 +406,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = MapStuff/Info.plist;
+				INFOPLIST_FILE = DailyPath/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.DailyPath;
 				PRODUCT_NAME = DailyPath;
@@ -413,10 +417,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = MapStuff/Info.plist;
+				INFOPLIST_FILE = DailyPath/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.DailyPath;
 				PRODUCT_NAME = DailyPath;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Release;
 		};
@@ -424,9 +429,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = MapStuffTests/Info.plist;
+				INFOPLIST_FILE = DailyPathTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.MapStuffTests;
+				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.DailyPathTests;
 				PRODUCT_NAME = DailyPath;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailyPath.app/DailyPath";
 			};
@@ -436,9 +441,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = MapStuffTests/Info.plist;
+				INFOPLIST_FILE = DailyPathTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.MapStuffTests;
+				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.DailyPathTests;
 				PRODUCT_NAME = DailyPath;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailyPath.app/DailyPath";
 			};
@@ -447,11 +452,11 @@
 		D912C40E1DDFC78500ACA72C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = MapStuffUITests/Info.plist;
+				INFOPLIST_FILE = DailyPathUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.MapStuffUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.DailyPathUITests;
 				PRODUCT_NAME = DailyPath;
-				TEST_TARGET_NAME = MapStuff;
+				TEST_TARGET_NAME = DailyPath;
 				USES_XCTRUNNER = YES;
 			};
 			name = Debug;
@@ -459,11 +464,11 @@
 		D912C40F1DDFC78500ACA72C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = MapStuffUITests/Info.plist;
+				INFOPLIST_FILE = DailyPathUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.MapStuffUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = TeamTinker.DailyPathUITests;
 				PRODUCT_NAME = DailyPath;
-				TEST_TARGET_NAME = MapStuff;
+				TEST_TARGET_NAME = DailyPath;
 				USES_XCTRUNNER = YES;
 			};
 			name = Release;
