@@ -12,16 +12,36 @@ import MapKit
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var startStopButton: UIBarButtonItem!
     var locationManager = CLLocationManager()
     var canAccessLocation = false
+    var isFollowingPerson = false
     var initialLocation: CLLocation?
     var currentLocation = CLLocation()
+    var currentRoute = [MKMapPoint]() {
+        didSet {
+            routeDisplay = MKPolyline(points: &currentRoute, count: currentRoute.count)
+        }
+    }
+    var routeDisplay: MKPolyline? {
+        willSet {
+            if let path = routeDisplay {
+                mapView.removeOverlay(path)
+            }
+        }
+        didSet {
+            if let path = routeDisplay {
+                mapView.addOverlay(path)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         mapView.mapType = .Hybrid
         mapView.userTrackingMode = .Follow
+        mapView.showsUserLocation = true
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = 5
@@ -59,14 +79,42 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations.last!
-        if initialLocation == nil {
+        if !isFollowingPerson {
             initialLocation = currentLocation
-            centerMapOnLocation(currentLocation)
+            currentRoute.removeAll()
+            currentRoute.append(MKMapPointForCoordinate(currentLocation.coordinate))
+        } else {
+            currentRoute.append(MKMapPointForCoordinate(currentLocation.coordinate))
         }
+        centerMapOnLocation(currentLocation)
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print("Burn! \(error)"
+        print("\(error)")
+    }
+    
+    @IBAction func followThePerson() {
+        if isFollowingPerson {
+            locationManager.stopUpdatingLocation()
+            isFollowingPerson = false
+            startStopButton.title! = "Start Running"
+            
+            // complete route
+        } else {
+            if canAccessLocation {
+                locationManager.startUpdatingLocation()
+                isFollowingPerson = true
+                startStopButton.title! = "Stop Running"
+                
+                // start route
+            } else {
+                let alert = UIAlertController(title: "Access Error", message: "Location information is unavailable. Please update your privacy settings to allow this app to access your location.", preferredStyle: .Alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alert.addAction(defaultAction)
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
     }
 
 }
