@@ -36,12 +36,12 @@
 
 /* Begin PBXFileReference section */
 		D912C3DF1DDFC78400ACA72C /* DailyPath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyPath.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D912C3E21DDFC78400ACA72C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "/Users/lakinragains/Desktop/Jeffrey_MobileApps/Daily-Path/DailyPath/AppDelegate.swift"; sourceTree = "<absolute>"; };
-		D912C3E41DDFC78400ACA72C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "/Users/lakinragains/Desktop/Jeffrey_MobileApps/Daily-Path/DailyPath/ViewController.swift"; sourceTree = "<absolute>"; };
+		D912C3E21DDFC78400ACA72C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D912C3E41DDFC78400ACA72C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D912C3E71DDFC78500ACA72C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D912C3E91DDFC78500ACA72C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D912C3EC1DDFC78500ACA72C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D912C3EE1DDFC78500ACA72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "/Users/lakinragains/Desktop/Jeffrey_MobileApps/Daily-Path/DailyPath/Info.plist"; sourceTree = "<absolute>"; };
+		D912C3EE1DDFC78500ACA72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D912C3F31DDFC78500ACA72C /* DailyPath.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyPath.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D912C3F71DDFC78500ACA72C /* DailyPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPathTests.swift; sourceTree = "<group>"; };
 		D912C3F91DDFC78500ACA72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -304,8 +304,7 @@
 				D912C3E71DDFC78500ACA72C /* Base */,
 			);
 			name = Main.storyboard;
-			path = "/Users/lakinragains/Desktop/Jeffrey_MobileApps/Daily-Path/DailyPath";
-			sourceTree = "<absolute>";
+			sourceTree = "<group>";
 		};
 		D912C3EB1DDFC78500ACA72C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -313,8 +312,7 @@
 				D912C3EC1DDFC78500ACA72C /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			path = "/Users/lakinragains/Desktop/Jeffrey_MobileApps/Daily-Path/DailyPath";
-			sourceTree = "<absolute>";
+			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 

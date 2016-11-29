@@ -30,16 +30,22 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
         didSet {
-            if let path = routeDisplay {
-                mapView.addOverlay(path)
+            if let path = routeDisplay where isFollowingPerson {
+                    mapView.addOverlay(path)
             }
         }
     }
+    //let overlayRenderer = MKOverlayRenderer()
     
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor.blueColor()
+        return renderer
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        mapView.mapType = .Hybrid
+        mapView.mapType = .Standard
         mapView.userTrackingMode = .Follow
         mapView.showsUserLocation = true
         mapView.delegate = self
@@ -68,7 +74,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
 
     func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 1600, 1600)
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
@@ -79,11 +85,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations.last!
-        if !isFollowingPerson {
-            initialLocation = currentLocation
-            currentRoute.removeAll()
-            currentRoute.append(MKMapPointForCoordinate(currentLocation.coordinate))
-        } else {
+        if isFollowingPerson {
             currentRoute.append(MKMapPointForCoordinate(currentLocation.coordinate))
         }
         centerMapOnLocation(currentLocation)
@@ -107,6 +109,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 startStopButton.title! = "Stop Running"
                 
                 // start route
+                currentLocation = mapView.userLocation.location!
+                initialLocation = currentLocation
+                currentRoute.removeAll()
+                currentRoute.append(MKMapPointForCoordinate(currentLocation.coordinate))
             } else {
                 let alert = UIAlertController(title: "Access Error", message: "Location information is unavailable. Please update your privacy settings to allow this app to access your location.", preferredStyle: .Alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
