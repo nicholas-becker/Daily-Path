@@ -18,9 +18,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var isFollowingPerson = false
     var initialLocation: CLLocation?
     var currentLocation = CLLocation()
-    var currentRoute = [MKMapPoint]() {
+    var currentRoute = Path() {
         didSet {
-            routeDisplay = MKPolyline(points: &currentRoute, count: currentRoute.count)
+            routeDisplay = MKPolyline(points: &currentRoute.points, count: currentRoute.points.count)
         }
     }
     var routeDisplay: MKPolyline? {
@@ -35,7 +35,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
     }
-    //let overlayRenderer = MKOverlayRenderer()
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
@@ -55,10 +54,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         //var temp = MKDirectionsRequest(contentsOfURL: NSURL())
         //temp.transportType = .Walking
-        
-        
-        // start this when the user selects option to begin new path
-        //locationManager.startMonitoringSignificantLocationChanges()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -86,7 +81,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations.last!
         if isFollowingPerson {
-            currentRoute.append(MKMapPointForCoordinate(currentLocation.coordinate))
+            currentRoute.points.append(MKMapPointForCoordinate(currentLocation.coordinate))
         }
         centerMapOnLocation(currentLocation)
     }
@@ -102,6 +97,22 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             startStopButton.title! = "Start Running"
             
             // complete route
+            let savePrompt = UIAlertController(title: "Save Path?", message: "If you would like to save the completed path, please enter a name and press Save.", preferredStyle: .Alert)
+            savePrompt.addTextFieldWithConfigurationHandler({
+                (textField) -> Void in
+                textField.text = "EnterName"
+            })
+            let saveAction = UIAlertAction(title: "Save", style: .Default) {
+                [weak savePrompt] (action) -> Void in
+                self.currentRoute.pathName = savePrompt!.textFields![0].text!
+                self.currentRoute.save()
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+
+            savePrompt.addAction(saveAction)
+            savePrompt.addAction(cancelAction)
+            
+            presentViewController(savePrompt, animated: true, completion: nil)
         } else {
             if canAccessLocation {
                 locationManager.startUpdatingLocation()
@@ -111,8 +122,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 // start route
                 currentLocation = mapView.userLocation.location!
                 initialLocation = currentLocation
-                currentRoute.removeAll()
-                currentRoute.append(MKMapPointForCoordinate(currentLocation.coordinate))
+                currentRoute.points.removeAll()
+                currentRoute.points.append(MKMapPointForCoordinate(currentLocation.coordinate))
             } else {
                 let alert = UIAlertController(title: "Access Error", message: "Location information is unavailable. Please update your privacy settings to allow this app to access your location.", preferredStyle: .Alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
@@ -122,6 +133,5 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
     }
-
 }
 
