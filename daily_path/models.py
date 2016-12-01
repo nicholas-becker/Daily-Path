@@ -2,17 +2,20 @@ from django.db import models
 
 class UserPath(models.Model):
     path_name = models.CharField(max_length=100)
+    path_dist = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        ordering = ('created',)
+        ordering = ['id']
+        
+    def __unicode__(self):
+        return self.path_name
 
 class PathPoint(models.Model):
-    point_name = models.CharField(max_length=100)
-    created = models.DateTimeField(auto_now_add=True)
-    parent_path = models.ForeignKey(UserPath, on_delete=models.CASCADE)
-    latitude = models.CharField(max_length=100, default='0°00\'00.0\"N')
-    longitude = models.CharField(max_length=100, default='0°00\'00.0\"E')
+    user_path = models.ForeignKey(UserPath, related_name='points', on_delete=models.CASCADE, null=True)
+    x = models.FloatField()
+    y = models.FloatField()
     
     class Meta:
-        ordering = ('created',)
+        unique_together = ('user_path', 'id')
+        ordering = ['id']

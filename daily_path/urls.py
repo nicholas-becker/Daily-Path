@@ -19,5 +19,5 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.hello_world),
+    url(r'^paths/(?P<pk>[0-9]+)/$', views.path_detail),
 ]
