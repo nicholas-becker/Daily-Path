@@ -31,12 +31,21 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYG-nF-9hh">
+                                <rect key="frame" x="20" y="64" width="42" height="21"/>
+                                <color key="backgroundColor" red="0.48591668631740492" green="0.7502385858002788" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1VW-gR-mVA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="9xq-wY-PWy"/>
+                            <constraint firstItem="OYG-nF-9hh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="KIg-3U-DK4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZEF-68-NUh" secondAttribute="trailing" id="KeV-52-G2q"/>
                             <constraint firstItem="ZEF-68-NUh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="RBR-4X-4xg"/>
+                            <constraint firstItem="OYG-nF-9hh" firstAttribute="top" secondItem="ZEF-68-NUh" secondAttribute="bottom" id="YeH-C9-4Dy"/>
                             <constraint firstItem="ZEF-68-NUh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Zbh-oA-xtk"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1VW-gR-mVA" secondAttribute="bottom" id="kKW-o0-4xb"/>
                             <constraint firstItem="1VW-gR-mVA" firstAttribute="top" secondItem="ZEF-68-NUh" secondAttribute="bottom" id="veS-Ye-Omf"/>
@@ -44,6 +53,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="currentDistance" destination="OYG-nF-9hh" id="PMz-3k-UAV"/>
                         <outlet property="mapView" destination="1VW-gR-mVA" id="Igj-y7-N3o"/>
                         <outlet property="startStopButton" destination="5Np-Y6-vKO" id="Rp0-Yt-kEX"/>
                     </connections>
