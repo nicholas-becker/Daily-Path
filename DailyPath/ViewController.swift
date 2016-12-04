@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
-    
+    var store: PathStore!
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var startStopButton: UIBarButtonItem!
     @IBOutlet var currentDistance: UILabel!
@@ -19,11 +19,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var isFollowingPerson = false
     var previousLocation: CLLocation?
     var currentLocation = CLLocation()
-    var currentRoute = Path() {
-        didSet {
-            routeDisplay = MKPolyline(points: &currentRoute.points, count: currentRoute.points.count)
-        }
-    }
+    var currentRoute = Path()
     var routeDisplay: MKPolyline? {
         willSet {
             if let path = routeDisplay {
@@ -36,6 +32,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
     }
+    
+    
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
@@ -83,6 +81,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             currentRoute.points.append(MKMapPointForCoordinate(currentLocation.coordinate))
             currentRoute.pathLength += getDistanceInMiles(previousLocation!, end: currentLocation)
             currentDistance.text = "Dist: \(round(currentRoute.pathLength * 100) / 100) mi"
+            routeDisplay = MKPolyline(points: &currentRoute.points, count: currentRoute.points.count)
         }
         mapView.userTrackingMode = .Follow
     }
@@ -123,6 +122,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 previousLocation = currentLocation
                 currentRoute.points.removeAll()
                 currentRoute.points.append(MKMapPointForCoordinate(currentLocation.coordinate))
+                routeDisplay = MKPolyline(points: &currentRoute.points, count: currentRoute.points.count)
             } else {
                 let alert = UIAlertController(title: "Access Error", message: "Location information is unavailable. Please update your privacy settings to allow this app to access your location.", preferredStyle: .Alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
@@ -135,6 +135,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     func getDistanceInMiles(start: CLLocation, end: CLLocation) -> Double {
         return abs(start.distanceFromLocation(end)) * 100 / 2.54 / 12 / 5280
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //print("going from path to path")
+        // if the triggered segue is the "ShowPaths" segue
+        if segue.identifier == "ShowPaths" {
+                let pathViewController = segue.destinationViewController as! PathListTableViewController
+                pathViewController.store = PathStore()
+                pathViewController.pathStore = [Path]()
+        }
     }
 }
 
