@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-struct Path {
+class Path: NSObject {
     var pathName: String = ""
     var pathLength: Double = 0
     var points: [MKMapPoint] = [MKMapPoint]()
@@ -26,11 +26,9 @@ struct Path {
         ]
     }
     
-    init() {
+    convenience init(pathName: String, pathLength: Double, points: [MKMapPoint]) {
+        self.init()
         
-    }
-    
-    init(pathName: String, pathLength: Double, points: [MKMapPoint]) {
         self.pathName = pathName
         self.pathLength = pathLength
         self.points = points

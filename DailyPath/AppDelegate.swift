@@ -16,6 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // stuff from ch 19 and creating boards
+        let rootViewController = window!.rootViewController as! UINavigationController
+        let viewController = rootViewController.topViewController as! ViewController
+        viewController.store = PathStore()
+        /*let boardStore = [Board]()
+        boardViewController.boardStore = boardStore*/
+        
         return true
     }
 
