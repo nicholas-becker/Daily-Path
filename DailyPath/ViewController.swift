@@ -34,7 +34,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     
-    
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = UIColor.blueColor()
@@ -134,7 +133,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func getDistanceInMiles(start: CLLocation, end: CLLocation) -> Double {
-        return abs(start.distanceFromLocation(end)) * 100 / 2.54 / 12 / 5280
+        return convertMetersToMiles(abs(start.distanceFromLocation(end)))
+    }
+    
+    func convertMetersToMiles(meters: Double) -> Double {
+        return meters * 100 / 2.54 / 12 / 5280
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -145,6 +148,60 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 pathViewController.store = PathStore()
                 pathViewController.pathStore = [Path]()
         }
+    }
+    
+    func createPath(length: Double) -> Path {
+        let newPath = Path(pathName: "", pathLength: 0, points: [MKMapPoint]())
+        var getBetterDirections = true
+        let directions = MKDirections()
+        let returnDirections = MKDirections()
+        
+        let directionsRequest = MKDirectionsRequest()
+        directionsRequest.transportType = .Walking
+        directionsRequest.requestsAlternateRoutes = true
+        directionsRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil))
+        var destination = getPossibleDestination(currentLocation.coordinate, distance: length)
+        
+        while(getBetterDirections) {
+            if(!directions.calculating && !returnDirections.calculating) {
+                directionsRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination, addressDictionary: nil))
+                directions.calculateDirectionsWithCompletionHandler() {serverResponse,error in
+                    if let response = serverResponse {
+                        var bestMatch = Double.infinity
+                        for route in response.routes {
+                            let pathDistance = self.convertMetersToMiles(route.distance)
+                            let diff = pathDistance - length / 2
+                            if (abs(diff) < abs(bestMatch)) {
+                                bestMatch = diff
+                            }
+                            
+                            if abs(diff) < 0.01 {
+                                newPath.pathLength = pathDistance
+                                let points = route.polyline.points()
+                                for point in points.stride(through: points, by: 1) {
+                                    newPath.points.append(point.memory)
+                                }
+                                
+                                //TODO
+                                // get return directions
+                                getBetterDirections = false
+                                return
+                            }
+                        }
+                        
+                        // get different destination
+                        destination = self.getPossibleDestination(destination, distance: bestMatch)
+                    }
+                }
+            }
+        }
+        
+        
+        return newPath
+    }
+    
+    func getPossibleDestination(start: CLLocationCoordinate2D, distance: Double) -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D()
     }
 }
 
