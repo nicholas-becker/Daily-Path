@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from . import views
+from daily_path import views
 
+app_name = 'daily_path'
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^paths/(?P<pk>[0-9]+)/$', views.path_detail),
+    url(r'^$', views.get_all_paths),
+    url(r'^paths/(?P<pk>[0-9]+)/$', views.get_path),
+    url(r'^paths/CREATE/$', views.create_path),
 ]

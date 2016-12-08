@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'daily_path'
 ]
 
@@ -140,3 +141,9 @@ STATICFILES_DIRS = (
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+import os
+if os.environ.get('HEROKU'): # heroku config:set HEROKU=1
+    DATABASES['default'] = dj_database_url.config()
+
+LOGIN_REDIRECT_URL = '/'

@@ -13,6 +13,7 @@ class UserPathSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserPath
         fields = ('path_name', 'path_dist', 'created', 'points')
+        
     
     def create(self, validated_data):
         """
@@ -25,12 +26,12 @@ class UserPathSerializer(serializers.ModelSerializer):
             
         return userpath
         
-    def update(self, instance, validated_data):
-        """
-        Update and return an existing `UserPath` instance, given the validated data.
-        """
-        instance.path_name = validated_data.get('path_name', instance.path_name)
-        instance.path_dist = validated_data.get('path_dist', instance.path_dist)
-        instance.points = validated_data.get('points', instance.points)
-        instance.save()
-        return instance
+    # def update(self, instance, validated_data):
+    #     """
+    #     Update and return an existing `UserPath` instance, given the validated data.
+    #     """
+    #     instance.path_name = validated_data.get('path_name', instance.path_name)
+    #     instance.path_dist = validated_data.get('path_dist', instance.path_dist)
+    #     instance.points = validated_data.get('points', instance.points)
+    #     instance.save()
+    #     return instance
