@@ -50,8 +50,17 @@ def get_all_paths(request):
 @api_view(['POST'])
 def create_path(request):
     # try:
-    userpath = UserPath(path_name=request.POST.__getitem__('path_name'), path_dist=request.POST.__getitem__('path_dist'), points=request.POST.__getitem__('points'))
+    userpath = UserPath(path_name=request.POST.__getitem__('path_name'), path_dist=request.POST.__getitem__('path_dist'))
     userpath.save()
+    
+    points = request.POST.__getitem__('points').split(',')
+    
+    i = 0
+    while i < len(points):
+        pathpoint = PathPoint(user_path=userpath, x=points[i], y=points[i+1])
+        pathpoint.save()
+        i = i + 2
+    
     json_data = UserPathSerializer(userpath)
     if request.method == 'POST':
         return JsonResponse(json_data.data, safe=False)

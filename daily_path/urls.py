@@ -21,6 +21,6 @@ app_name = 'daily_path'
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.get_all_paths),
-    url(r'^paths/(?P<pk>[0-9]+)/$', views.get_path),
-    url(r'^paths/CREATE/$', views.create_path),
+    url(r'^(?P<pk>[0-9]+)/$', views.get_path),
+    url(r'^CREATE$', views.create_path),
 ]
