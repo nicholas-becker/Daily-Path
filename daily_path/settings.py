@@ -142,8 +142,8 @@ STATICFILES_DIRS = (
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-import os
-if os.environ.get('HEROKU'): # heroku config:set HEROKU=1
-    DATABASES['default'] = dj_database_url.config()
+# import os
+# if os.environ.get('HEROKU'): # heroku config:set HEROKU=1
+#     DATABASES['default'] = dj_database_url.config()
 
 LOGIN_REDIRECT_URL = '/'
