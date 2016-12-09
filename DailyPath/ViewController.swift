@@ -28,16 +28,32 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         didSet {
             if let path = routeDisplay where isFollowingPerson {
+                path.title = "Running Path"
+                mapView.addOverlay(path)
+            }
+        }
+    }
+    var loadedPath = Path()
+    var loadedDisplay: MKPolyline? {
+        willSet {
+            if let path = loadedDisplay {
+                mapView.removeOverlay(path)
+            }
+        }
+        didSet {
+            if let path = loadedDisplay {
+                path.title = "Loaded Path"
                 mapView.addOverlay(path)
             }
         }
     }
     
-    
-    
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = UIColor.blueColor()
+        if overlay.title! == "Loaded Path" {
+            renderer.strokeColor = UIColor.redColor()
+        }
         return renderer
     }
     override func viewDidLoad() {
@@ -51,9 +67,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.desiredAccuracy = 1
         locationManager.distanceFilter = 10
         currentDistance.text = nil
-        
-        //var temp = MKDirectionsRequest(contentsOfURL: NSURL())
-        //temp.transportType = .Walking
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -95,22 +108,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             startStopButton.title! = "Start Running"
             
             // complete route
-            let savePrompt = UIAlertController(title: "Save Path?", message: "If you would like to save the completed path, please enter a name and press Save.", preferredStyle: .Alert)
-            savePrompt.addTextFieldWithConfigurationHandler({
-                (textField) -> Void in
-                textField.text = "EnterName"
-            })
-            let saveAction = UIAlertAction(title: "Save", style: .Default) {
-                [weak savePrompt] (action) -> Void in
-                self.currentRoute.pathName = savePrompt!.textFields![0].text!
-                self.currentRoute.save()
-            }
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-            
-            savePrompt.addAction(cancelAction)
-            savePrompt.addAction(saveAction)
-            
-            presentViewController(savePrompt, animated: true, completion: nil)
+            savePath(currentRoute)
             isFollowingPerson = false
         } else {
             if canAccessLocation {
@@ -134,7 +132,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func getDistanceInMiles(start: CLLocation, end: CLLocation) -> Double {
-        return abs(start.distanceFromLocation(end)) * 100 / 2.54 / 12 / 5280
+        return convertMetersToMiles(abs(start.distanceFromLocation(end)))
+    }
+    
+    func convertMetersToMiles(meters: Double) -> Double {
+        return meters * 100 / 2.54 / 12 / 5280
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -145,6 +147,112 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 pathViewController.store = PathStore()
                 pathViewController.pathStore = [Path]()
         }
+    }
+    
+    func findPath(length: Double, possibleEnd: CLLocationCoordinate2D) {
+        loadedPath = Path()
+        
+        let directionsRequest = MKDirectionsRequest()
+        var directions = MKDirections(request: directionsRequest)
+        directionsRequest.transportType = .Walking
+        directionsRequest.requestsAlternateRoutes = true
+        directionsRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil))
+        
+        directionsRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: possibleEnd, addressDictionary: nil))
+        directions = MKDirections(request: directionsRequest)
+        directions.calculateDirectionsWithCompletionHandler() { serverResponse, error in
+            if let response = serverResponse {
+                var bestMatch = Double.infinity
+                for route in response.routes {
+                    let pathDistance = self.convertMetersToMiles(route.distance)
+                    print("path distance is: \(pathDistance)")
+                    let diff = length / 2 - pathDistance
+                    if (abs(diff) < abs(bestMatch)) {
+                        bestMatch = diff
+                    }
+                    
+                    if abs(diff) < 0.01 {
+                        self.loadedPath.pathLength = pathDistance
+                        let points = route.polyline.points()
+                        for point in points.stride(through: points.advancedBy(route.polyline.pointCount - 1), by: 1) {
+                            self.loadedPath.points.append(point.memory)
+                        }
+                        
+                        self.completePath(directionsRequest.destination!, home: directionsRequest.source!)
+                        return
+                    }
+                }
+                // try again with a better guess
+                self.findPath(length, possibleEnd: self.getPossibleDestination(possibleEnd, distance: bestMatch))
+            }
+        }
+    }
+    
+    func completePath(halfway: MKMapItem, home: MKMapItem){
+        let directionsRequest = MKDirectionsRequest()
+        directionsRequest.source = halfway
+        directionsRequest.destination = home
+        let directions = MKDirections(request: directionsRequest)
+        directions.calculateDirectionsWithCompletionHandler() { serverResponse, error in
+            let route = serverResponse!.routes.first!
+            let pathDistance = self.convertMetersToMiles(route.distance)
+            self.loadedPath.pathLength += pathDistance
+            
+            let polyline = route.polyline
+            let points = polyline.points()
+            for point in points.stride(through: points.advancedBy(polyline.pointCount - 1), by: 1) {
+                self.loadedPath.points.append(point.memory)
+            }
+            print("total distance: \(self.loadedPath.pathLength)")
+            self.loadedDisplay = MKPolyline(points: &self.loadedPath.points, count: self.loadedPath.points.count)
+            self.savePath(self.loadedPath)
+        }
+    }
+    
+    func getPossibleDestination(start: CLLocationCoordinate2D, distance: Double) -> CLLocationCoordinate2D {
+        let destinationLat = start.latitude + distance / 69.172 / 2
+        let centerLat = (start.latitude + destinationLat) / 2
+        let destinationLon = start.longitude + distance / (cos(centerLat) * 69.172) / 2
+        return CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLon)
+    }
+    
+    @IBAction func findPath() {
+        let findPathPrompt = UIAlertController(title: "Find Path", message: "Enter the desired path distance in miles", preferredStyle: .Alert)
+        findPathPrompt.addTextFieldWithConfigurationHandler({
+            (textField) -> Void in
+            textField.placeholder = "TotalDistance"
+            textField.keyboardType = .DecimalPad
+        })
+        let calculateAction = UIAlertAction(title: "Calculate", style: .Default) {
+            [weak findPathPrompt] (action) -> Void in
+            let distance = Double(findPathPrompt!.textFields![0].text!)!
+            self.findPath(distance, possibleEnd: self.getPossibleDestination(self.currentLocation.coordinate, distance: distance))
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        findPathPrompt.addAction(cancelAction)
+        findPathPrompt.addAction(calculateAction)
+        
+        presentViewController(findPathPrompt, animated: true, completion: nil)
+    }
+    
+    func savePath(path: Path) {
+        let savePrompt = UIAlertController(title: "Save Path?", message: "If you would like to save the completed path, please enter a name and press Save.", preferredStyle: .Alert)
+        savePrompt.addTextFieldWithConfigurationHandler({
+            (textField) -> Void in
+            textField.placeholder = "\(path.pathLength) mile run"
+        })
+        let saveAction = UIAlertAction(title: "Save", style: .Default) {
+            [weak savePrompt] (action) -> Void in
+            path.pathName = savePrompt!.textFields![0].text!
+            path.save()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        savePrompt.addAction(cancelAction)
+        savePrompt.addAction(saveAction)
+        
+        presentViewController(savePrompt, animated: true, completion: nil)
     }
 }
 
