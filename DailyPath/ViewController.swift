@@ -240,7 +240,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let savePrompt = UIAlertController(title: "Save Path?", message: "If you would like to save the completed path, please enter a name and press Save.", preferredStyle: .Alert)
         savePrompt.addTextFieldWithConfigurationHandler({
             (textField) -> Void in
-            textField.placeholder = "EnterName"
+            textField.placeholder = "\(path.pathLength) mile run"
         })
         let saveAction = UIAlertAction(title: "Save", style: .Default) {
             [weak savePrompt] (action) -> Void in
