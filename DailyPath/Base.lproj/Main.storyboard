@@ -47,9 +47,14 @@
                                     <action selector="followThePerson" destination="BYZ-38-t0r" id="sdv-7N-vsO"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Find Path" id="zbD-SG-iBA">
+                            <barButtonItem title="Load Path" id="zbD-SG-iBA">
                                 <connections>
                                     <segue destination="3HL-7V-G08" kind="show" id="OqE-kt-QmJ"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Find Path" id="D73-eu-OS2">
+                                <connections>
+                                    <action selector="findPath" destination="BYZ-38-t0r" id="H01-9h-yvq"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
