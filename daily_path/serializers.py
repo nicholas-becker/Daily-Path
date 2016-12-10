@@ -12,7 +12,7 @@ class UserPathSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = UserPath
-        fields = ('path_name', 'path_dist', 'created', 'points')
+        fields = ('id', 'path_name', 'path_dist', 'created', 'points')
         
     
     def create(self, validated_data):
