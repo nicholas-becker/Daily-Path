@@ -77,9 +77,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="t2e-Ys-ydt">
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWv-s0-Jrw">
+                                    <rect key="frame" x="102" y="7" width="30" height="30"/>
+                                    <state key="normal" title="Edit"/>
+                                    <connections>
+                                        <action selector="toggleEditingMode:" destination="3HL-7V-G08" eventType="touchUpInside" id="1sg-rQ-rKK"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="UITableViewCellPath" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCellPath" textLabel="bdY-pO-jYN" detailTextLabel="QOv-Sv-TpW" style="IBUITableViewCellStyleValue1" id="ral-og-zrf">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="136" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ral-og-zrf" id="WT0-nR-Dge">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -92,8 +106,8 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QOv-Sv-TpW">
-                                            <rect key="frame" x="543" y="12" width="42" height="20"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Distance" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QOv-Sv-TpW">
+                                            <rect key="frame" x="521" y="12" width="64" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
@@ -108,8 +122,12 @@
                             <outlet property="delegate" destination="3HL-7V-G08" id="NhP-KS-Fe3"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="lBu-se-Mrl" kind="unwind" identifier="unwindToViewController" unwindAction="unwindToViewController:" id="08a-gJ-sov"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NaZ-8Q-jzG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="lBu-se-Mrl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1573" y="-496"/>
         </scene>

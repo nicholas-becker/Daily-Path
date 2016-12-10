@@ -230,6 +230,7 @@ class PathListTableViewController: UITableViewController {
         
         cell.textLabel?.text = path.pathName
         cell.detailTextLabel?.text = "\(path.pathLength) mi"
+        cell.tag = indexPath.row
         
         return cell
     }
@@ -242,7 +243,16 @@ class PathListTableViewController: UITableViewController {
         let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
         tableView.contentInset = insets
         tableView.scrollIndicatorInsets = insets
-        
+        self.tableView.reloadData()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         store.getAllPaths() {
             (PathResult) -> Void in switch PathResult {
             case let .Success(paths):
@@ -259,16 +269,12 @@ class PathListTableViewController: UITableViewController {
                 print("Error fetching paths: \(error)")
             }
         }
+        self.tableView.reloadData()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        tableView.reloadData()
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let parent = self.parentViewController as! UINavigationController
+        (parent.viewControllers[parent.viewControllers.count-2] as! ViewController).loadedPath = pathStore[indexPath.row]
+        self.performSegueWithIdentifier("unwindToViewController", sender: self)
     }
 }
