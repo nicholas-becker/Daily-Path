@@ -50,7 +50,7 @@ def get_all_paths(request):
 @api_view(['POST'])
 def create_path(request):
     # try:
-    pathname = request.POST.get('path_name')
+    pathname = request.POST.get("path_name")
     print(pathname)
     pathdist = request.POST.get('path_dist')
     print(pathdist)
