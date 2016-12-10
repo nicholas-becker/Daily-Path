@@ -7,31 +7,6 @@ from daily_path.models import UserPath, PathPoint
 from daily_path.serializers import UserPathSerializer, PathPointSerializer
 import json
 
-# def __init__(data, **kwargs):
-#     content = JSONRenderer().render(data)
-#     kwargs['content_type'] = 'application/json'
-#     super(JSONResponse, self).__init__(content, **kwargs)
-        
-# @api_view(['GET'])
-# def get_path(request, pk):
-#     try:
-#         userpath = UserPath.objects.get(pk=pk)
-#     except UserPath.DoesNotExist:
-#         return HttpResponse(status=404)
-    
-#     serializer = UserPathSerializer(userpath, many=True)
-#     if request.method == 'GET':
-#         return JsonResponse(serializer.data)
-
-# @api_view(['GET'])
-# def get_all_paths(request):
-#     try:
-#         userpaths = UserPath.objects.order_by('created')
-#     except UserPath.DoesNotExist:
-#         return HttpResponse(status=404)
-#     serializer = UserPathSerializer(userpaths, many=True)
-#     if request.method == 'GET':
-#         return JsonResponse(serializer.data)
 
 @api_view(['GET'])
 def get_all_paths(request):
@@ -40,11 +15,7 @@ def get_all_paths(request):
     except UserPath.DoesNotExist:
         return HttpResponse(status=404)
     serializer = UserPathSerializer(userpaths, many=True)
-    # content = JSONRenderer().render(serializer.data)
-    # stream = BytesIO(content)
-    # data = JSONParser().parse(stream)
-    # serializer = UserPathSerializer(data = data, many=True)
-    # if serializer.is_valid():
+
     return JsonResponse(serializer.data, safe=False)
 
 @api_view(['POST'])
@@ -69,12 +40,6 @@ def create_path(request):
     json_data = UserPathSerializer(userpath)
     if request.method == 'POST':
         return JsonResponse(json_data.data, safe=False)
-    #     pathpoint = PathPoint(user_path=userpath, x=x, y=y)
-    #     pathpoint.save()
-    # except UserPath.DoesNotExist:
-    #     return HttpResponse(status=404)
-    # serializer = UserPathSerializer(userpath)
-    # return JsonResponse(serializer.data)       
 
 @api_view(['GET'])
 def get_path(request, pk):
@@ -85,23 +50,3 @@ def get_path(request, pk):
     serializer = UserPathSerializer(userpath)
     return JsonResponse(serializer.data)
     
-
-
-# @csrf_exempt
-# def path_detail(request, pk):
-#     """
-#     Retrieve or delete a user generated path.
-#     """
-#     try:
-#         userpath = UserPath.objects.get(pk=pk)
-#     except UserPath.DoesNotExist:
-#         return HttpResponse(status=404)
-        
-#     if request.method == 'GET':
-#         serializer = UserPathSerializer(userpath)
-#         return JSONResponse(serializer.data)
-        
-        
-#     elif request.method == 'DELETE':
-#         userpath.delete()
-#         return HttpResponse(status=204)
