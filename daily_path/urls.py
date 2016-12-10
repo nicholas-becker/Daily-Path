@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^$', views.get_all_paths),
     url(r'^(?P<pk>[0-9]+)/$', views.get_path),
     url(r'^CREATE$', views.create_path),
+    url(r'^DELETE/(?P<pk>[0-9]+)/$', views.delete_path),
 ]

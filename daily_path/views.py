@@ -41,6 +41,12 @@ def create_path(request):
     if request.method == 'POST':
         return JsonResponse(json_data.data, safe=False)
 
+@api_view(['DELETE'])
+def delete_path(request, pk):
+    instance = UserPath.objects.get(pk=pk)
+    instance.delete()
+    return HttpResponse("Path Deleted: " + pk)
+
 @api_view(['GET'])
 def get_path(request, pk):
     try:
