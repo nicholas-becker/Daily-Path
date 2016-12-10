@@ -33,7 +33,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
     }
-    var loadedPath = Path()
+    var loadedPath = Path() {
+        didSet {
+            loadedDisplay = MKPolyline(points: &loadedPath.points, count: loadedPath.points.count)
+        }
+    }
     var loadedDisplay: MKPolyline? {
         willSet {
             if let path = loadedDisplay {
@@ -41,14 +45,17 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
         didSet {
-            if let path = loadedDisplay {
+            if let path = loadedDisplay where loadedDisplay?.pointCount > 0{
                 path.title = "Loaded Path"
+                mapView.userTrackingMode = .None
+                mapView.centerCoordinate = path.coordinate
                 mapView.addOverlay(path)
             }
         }
     }
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        print((overlay as! MKPolyline).pointCount)
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = UIColor.blueColor()
         renderer.alpha = 0.5
@@ -68,10 +75,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.desiredAccuracy = 1
         locationManager.distanceFilter = 10
         currentDistance.text = nil
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         
         if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
             locationManager.requestAlwaysAuthorization()
@@ -80,6 +83,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             canAccessLocation = true
             locationManager.startUpdatingLocation()
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,7 +105,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             currentDistance.text = "Dist: \(round(currentRoute.pathLength * 100) / 100) mi"
             routeDisplay = MKPolyline(points: &currentRoute.points, count: currentRoute.points.count)
         }
-        mapView.userTrackingMode = .Follow
+        //mapView.userTrackingMode = .Follow
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -255,6 +263,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         savePrompt.addAction(saveAction)
         
         presentViewController(savePrompt, animated: true, completion: nil)
+    }
+    
+    @IBAction func unwindToViewController(segue: UIStoryboardSegue) {
+        let temp = routeDisplay
+        routeDisplay = temp
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
 }
 
