@@ -51,6 +51,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = UIColor.blueColor()
+        renderer.alpha = 0.5
         if overlay.title! == "Loaded Path" {
             renderer.strokeColor = UIColor.redColor()
         }
@@ -119,6 +120,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 currentLocation = mapView.userLocation.location!
                 previousLocation = currentLocation
                 currentRoute.points.removeAll()
+                currentRoute.pathLength = 0
                 currentRoute.points.append(MKMapPointForCoordinate(currentLocation.coordinate))
                 routeDisplay = MKPolyline(points: &currentRoute.points, count: currentRoute.points.count)
             } else {
@@ -240,12 +242,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let savePrompt = UIAlertController(title: "Save Path?", message: "If you would like to save the completed path, please enter a name and press Save.", preferredStyle: .Alert)
         savePrompt.addTextFieldWithConfigurationHandler({
             (textField) -> Void in
-            textField.placeholder = "\(path.pathLength) mile run"
+            textField.placeholder = "\(round(path.pathLength * 100) / 100) mile run"
         })
         let saveAction = UIAlertAction(title: "Save", style: .Default) {
             [weak savePrompt] (action) -> Void in
             path.pathName = savePrompt!.textFields![0].text!
-            path.save()
+            self.store.createPath(path, completion: nil)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         

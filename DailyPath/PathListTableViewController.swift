@@ -33,23 +33,23 @@ class PathStore {
         return PathAPI.pathsFromJSONData(jsonData)
     }
     
-    func createPath(thePath: Path, completion: (PathResult) -> Void) {
+    func createPath(thePath: Path, completion: ((PathResult) -> Void)?) {
         let url = PathAPI.CreatePathURL(thePath)
-        //print(url)
+        print(url)
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "POST"
-        //print(request)
+        print(request)
         let task = session.dataTaskWithRequest(request) {
             (data, response, error) -> Void in
             
             let result = self.processCreatePathRequest(data: data, error: error)
-            completion(result)
+            completion?(result)
         }
         task.resume()
     }
     func processCreatePathRequest(data data: NSData?, error: NSError?) ->  PathResult{
         guard let jsonData = data else {
-            //print(data)
+            print(data)
             return .Failure(error!)
         }
         return PathAPI.pathFromJSONData(jsonData)

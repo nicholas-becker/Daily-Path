@@ -54,6 +54,6 @@ class Path: NSObject {
     
     func save() {
         let json = try! NSJSONSerialization.dataWithJSONObject(jsonDictionary, options: [])
-        print(json)
+        
     }
 }

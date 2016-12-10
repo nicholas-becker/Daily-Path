@@ -49,7 +49,7 @@
                             </barButtonItem>
                             <barButtonItem title="Load Path" id="zbD-SG-iBA">
                                 <connections>
-                                    <segue destination="3HL-7V-G08" kind="show" id="OqE-kt-QmJ"/>
+                                    <segue destination="3HL-7V-G08" kind="show" identifier="ShowPaths" id="OqE-kt-QmJ"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Find Path" id="D73-eu-OS2">
@@ -69,16 +69,16 @@
             </objects>
             <point key="canvasLocation" x="917" y="-496"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Path List Table View Controller-->
         <scene sceneID="RtP-1G-QCP">
             <objects>
-                <tableViewController id="3HL-7V-G08" sceneMemberID="viewController">
+                <tableViewController id="3HL-7V-G08" customClass="PathListTableViewController" customModule="DailyPath" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Df2-3n-LM5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCellPath" textLabel="bdY-pO-jYN" detailTextLabel="QOv-Sv-TpW" style="IBUITableViewCellStyleValue1" id="ral-og-zrf">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="UITableViewCellPath" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCellPath" textLabel="bdY-pO-jYN" detailTextLabel="QOv-Sv-TpW" style="IBUITableViewCellStyleValue1" id="ral-og-zrf">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ral-og-zrf" id="WT0-nR-Dge">
