@@ -50,10 +50,16 @@ def get_all_paths(request):
 @api_view(['POST'])
 def create_path(request):
     # try:
-    userpath = UserPath(path_name=request.POST.__getitem__('path_name'), path_dist=request.POST.__getitem__('path_dist'))
+    print (request.POST.objects.all())
+    pathname = request.POST.get('path_name')
+    print(pathname)
+    pathdist = request.POST.get('path_dist')
+    print(pathdist)
+    
+    userpath = UserPath(path_name=pathname, path_dist=pathdist)
     userpath.save()
     
-    points = request.POST.__getitem__('points').split(',')
+    points = request.POST.get('points').split(',')
     
     i = 0
     while i < len(points):
