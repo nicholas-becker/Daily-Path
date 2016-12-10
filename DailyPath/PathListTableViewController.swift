@@ -35,10 +35,8 @@ class PathStore {
     
     func createPath(thePath: Path, completion: ((PathResult) -> Void)?) {
         let url = PathAPI.CreatePathURL(thePath)
-        print(url)
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "POST"
-        print(request)
         let task = session.dataTaskWithRequest(request) {
             (data, response, error) -> Void in
             
@@ -263,13 +261,17 @@ class PathListTableViewController: UITableViewController {
                 for each in self.pathStore{
                     //print(each.pathName)
                     //print(each.pathLength)
-                    self.tableView.reloadData()
                 }
             case let .Failure(error):
                 print("Error fetching paths: \(error)")
             }
+            
+            NSOperationQueue.mainQueue().addOperationWithBlock() {
+                self.tableView.reloadData()
+            }
+            
+            
         }
-        self.tableView.reloadData()
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
