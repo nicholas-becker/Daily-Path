@@ -58,7 +58,7 @@ def create_path(request):
     userpath = UserPath(path_name=pathname, path_dist=pathdist)
     userpath.save()
     
-    points = request.POST.get("points", "").split(',')
+    points = request.GET.get("points", "").split(',')
     
     i = 0
     while i < len(points):
