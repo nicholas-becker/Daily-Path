@@ -18,7 +18,7 @@ enum Method: String {
     case GET = ""
     case POST = "CREATE"
     case PUT = "paths"
-    case DELETE = "DELETE"
+    case DELETE = "DELETE/"
 }
 
 enum PathsResult {
@@ -154,7 +154,7 @@ struct PathAPI {
     }
     // TO DO
     static func DeletePathURL(path: Path) -> NSURL {
-        return pathURL(method: .DELETE, urlString: "\(path.id)", parameters: [:])
+        return pathURL(method: .DELETE, urlString: "\(path.id)/", parameters: [:])
     }
     
     // TO DO
