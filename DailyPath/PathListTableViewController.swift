@@ -224,7 +224,7 @@ class PathListTableViewController: UITableViewController {
         let path = pathStore[indexPath.row]
         
         cell.textLabel?.text = path.pathName
-        cell.detailTextLabel?.text = "\(path.pathLength) mi"
+        cell.detailTextLabel?.text = "\(round(path.pathLength * 100) / 100) mi"
         cell.tag = indexPath.row
         
         return cell
