@@ -12,8 +12,8 @@ import MapKit
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     var store: PathStore!
     @IBOutlet var mapView: MKMapView!
-    @IBOutlet var startStopButton: UIBarButtonItem!
     @IBOutlet var currentDistance: UILabel!
+    @IBOutlet var startStopButton: UIBarButtonItem!
     var locationManager = CLLocationManager()
     var canAccessLocation = false
     var isFollowingPerson = false
@@ -94,7 +94,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
     }
 
     override func didReceiveMemoryWarning() {
