@@ -47,18 +47,18 @@ class PathStore {
     }
     func processCreatePathRequest(data data: NSData?, error: NSError?) ->  PathResult{
         guard let jsonData = data else {
-            print(data)
+
             return .Failure(error!)
         }
         return PathAPI.pathFromJSONData(jsonData)
     }
     /*
     func editPath(completion: (PathResult) -> Void) {
-        let url = PathAPI.EditPathURL(parentPath.name, desc: parentPath.desc, pathId: parentPath.id)
-        //print(url)
+        let url = PathAPI.EditPathURL(parentPath.name, pathId: parentPath.id)
+
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "PUT"
-        //print(request)
+
         let task = session.dataTaskWithRequest(request) {
             (data, response, error) -> Void in
             
@@ -69,7 +69,7 @@ class PathStore {
     }
     func processEditPathRequest(data data: NSData?, error: NSError?) ->  PathResult{
         guard let jsonData = data else {
-            //print(data)
+
             return .Failure(error!)
         }
         return PathAPI.pathFromJSONData(jsonData)
@@ -77,10 +77,10 @@ class PathStore {
     
     func deletePath(path: Path, completion: ((PathResult) -> Void)?) {
         let url = PathAPI.DeletePathURL(path)
-        //print(url)
+
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "DELETE"
-        //print(request)
+        
         let task = session.dataTaskWithRequest(request) {
             (data, response, error) -> Void in
             
@@ -91,17 +91,17 @@ class PathStore {
     }
     func processDeletePathRequest(data data: NSData?, error: NSError?) ->  PathResult{
         guard let jsonData = data else {
-            //print(data)
+           
             return .Failure(error!)
         }
         return PathAPI.pathFromJSONData(jsonData)
     }
-    func movePath(pathId: String, pos: String, completion: (PathResult) -> Void) {
+    /*func movePath(pathId: String, pos: String, completion: (PathResult) -> Void) {
         let url = PathAPI.MovePathURL(pathId, pos: pos)
-        //print(url)
+      
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "PUT"
-        //print(request)
+
         let task = session.dataTaskWithRequest(request) {
             (data, response, error) -> Void in
             
@@ -116,7 +116,7 @@ class PathStore {
             return .Failure(error!)
         }
         return PathAPI.pathFromJSONData(jsonData)
-    }
+    }*/
 }
 
 class PathListTableViewController: UITableViewController {
@@ -142,9 +142,6 @@ class PathListTableViewController: UITableViewController {
         pathStore.insert(movedPath, atIndex: toIndex)
     }
     
-    @IBAction func addBlankPath(sender: AnyObject) {
-        addNewPath(self, givenPath: Path(pathName: "New Path", pathLength: 0, points: [MKMapPoint]()))
-    }
     @IBAction func addNewPath(sender: AnyObject, givenPath: Path?) {
         // create a new path and add it to the store
         if givenPath == nil {
@@ -186,7 +183,6 @@ class PathListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //print("displaying \(pathStore.count) cells")
         return pathStore.count
     }
     
@@ -258,11 +254,7 @@ class PathListTableViewController: UITableViewController {
                 for each in paths {
                     self.addNewPath(self, givenPath: each)
                 }
-                //print("successfully found \(paths.count) paths")
-                for each in self.pathStore{
-                    //print(each.pathName)
-                    //print(each.pathLength)
-                }
+
             case let .Failure(error):
                 print("Error fetching paths: \(error)")
             }
