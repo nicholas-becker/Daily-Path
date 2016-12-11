@@ -75,7 +75,7 @@ class PathStore {
         return PathAPI.pathFromJSONData(jsonData)
     }*/
     
-    func deletePath(path: Path, completion: (PathResult) -> Void) {
+    func deletePath(path: Path, completion: ((PathResult) -> Void)?) {
         let url = PathAPI.DeletePathURL(path)
         //print(url)
         let request = NSMutableURLRequest(URL: url)
@@ -85,7 +85,7 @@ class PathStore {
             (data, response, error) -> Void in
             
             let result = self.processDeletePathRequest(data: data, error: error)
-            completion(result)
+            completion?(result)
         }
         task.resume()
     }
@@ -209,6 +209,7 @@ class PathListTableViewController: UITableViewController {
                 
                 // also remove that row from the table view with an animation
                 self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                self.store.deletePath(path, completion: nil)
             })
             ac.addAction(deleteAction)
             
