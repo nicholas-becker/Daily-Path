@@ -172,7 +172,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         var directions = MKDirections(request: directionsRequest)
         directionsRequest.transportType = .Walking
         directionsRequest.requestsAlternateRoutes = true
-        directionsRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil))
+        directionsRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: start, addressDictionary: nil))
         
         directionsRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: middle, addressDictionary: nil))
         directions = MKDirections(request: directionsRequest)
@@ -214,10 +214,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 }
             } else if let response = serverResponse {
                 let currentLength = self.convertMetersToMiles(firstHalf.distance)
-                print("first half: \(currentLength)")
+                
                 for route in response.routes {
                     let pathDistance = self.convertMetersToMiles(route.distance)
-                    print("total: \(pathDistance + currentLength)")
+                   
                     let diff = desiredLength - (currentLength + pathDistance)
                     if diff > 0 && diff < self.bestPosMatch {
                         self.bestPosMatch = diff
@@ -239,8 +239,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                     }
                 }
                 
-                print("closest pos diff: \(self.bestPosMatch)")
-                print("closes neg diff: \(self.bestNegMatch)")
                 // try again with a better guess
                 var moveDistance = (self.bestPosMatch + self.bestNegMatch) / 2
                 if self.bestPosMatch == Double.infinity {
@@ -332,7 +330,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         })
         let saveAction = UIAlertAction(title: "Save", style: .Default) {
             [weak savePrompt] (action) -> Void in
-            path.pathName = savePrompt!.textFields![0].text!
+            if let name = savePrompt!.textFields![0].text! where name != "" {
+                path.pathName = name
+            } else {
+                path.pathName = savePrompt!.textFields![0].placeholder
+            }
+            
             self.store.createPath(path, completion: nil)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -346,11 +349,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func unwindToViewController(segue: UIStoryboardSegue) {
         let temp = routeDisplay
         routeDisplay = temp
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
     }
 }
 
