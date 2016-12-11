@@ -61,7 +61,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-        print((overlay as! MKPolyline).pointCount)
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = UIColor.blueColor()
         renderer.alpha = 0.5
@@ -330,10 +329,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         })
         let saveAction = UIAlertAction(title: "Save", style: .Default) {
             [weak savePrompt] (action) -> Void in
-            if let name = savePrompt!.textFields![0].text! where name != "" {
+            if let name = savePrompt!.textFields![0].text where name != "" {
                 path.pathName = name
             } else {
-                path.pathName = savePrompt!.textFields![0].placeholder
+                path.pathName = savePrompt!.textFields![0].placeholder!
             }
             
             self.store.createPath(path, completion: nil)
