@@ -46,13 +46,15 @@ struct PathAPI {
                 // The JSON structure doesn't match our expectations
                 return .Failure(PathError.InvalidJSONData)
             }
+            var ids = [Int]()
             var names = [String]()
             var lengths = [Double]()
             var points = [[MKMapPoint]]()
             for each in paths {
-                guard let theName = each["path_name"] as? String, theLength = each["path_dist"] as? Double, thePoints = each["points"] as? [NSDictionary] else {
+                guard let theId = each["id"] as? Int, theName = each["path_name"] as? String, theLength = each["path_dist"] as? Double, thePoints = each["points"] as? [NSDictionary] else {
                     return .Failure(PathError.InvalidJSONData)
                 }
+                ids.append(theId)
                 names.append(theName)
                 lengths.append(theLength)
                 var pointArray = [MKMapPoint]()
@@ -67,7 +69,7 @@ struct PathAPI {
             
             var finalPaths = [Path]()
             for each in names {
-                finalPaths.append( Path(pathName: each, pathLength: lengths[names.indexOf(each)!], points: points[names.indexOf(each)!]) )
+                finalPaths.append( Path(pathName: each, pathLength: lengths[names.indexOf(each)!], points: points[names.indexOf(each)!], id: ids[names.indexOf(each)!]) )
             }
             
             if finalPaths.count == 0 && paths.count > 0 {

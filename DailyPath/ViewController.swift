@@ -33,6 +33,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
     }
+    var searchQuadrant = 3
+    var bestPosMatch = Double.infinity
+    var bestNegMatch = -Double.infinity
+    var startRoute = MKRoute()
+    var bestRoute = MKRoute()
+    var loadingPath = false
     var loadedPath = Path() {
         didSet {
             loadedDisplay = MKPolyline(points: &loadedPath.points, count: loadedPath.points.count)
@@ -48,7 +54,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             if let path = loadedDisplay where loadedDisplay?.pointCount > 0{
                 path.title = "Loaded Path"
                 mapView.userTrackingMode = .None
-                mapView.centerCoordinate = path.coordinate
+                mapView.centerCoordinate = MKCoordinateForMapPoint(path.points().memory)
                 mapView.addOverlay(path)
             }
         }
@@ -64,6 +70,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         return renderer
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -104,8 +111,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             currentRoute.pathLength += getDistanceInMiles(previousLocation!, end: currentLocation)
             currentDistance.text = "Dist: \(round(currentRoute.pathLength * 100) / 100) mi"
             routeDisplay = MKPolyline(points: &currentRoute.points, count: currentRoute.points.count)
+            mapView.userTrackingMode = .Follow
         }
-        //mapView.userTrackingMode = .Follow
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -159,7 +166,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
     
-    func findPath(length: Double, possibleEnd: CLLocationCoordinate2D) {
+    func findPath(length: Double, start: CLLocationCoordinate2D,  middle: CLLocationCoordinate2D) {
         loadedPath = Path()
         
         let directionsRequest = MKDirectionsRequest()
@@ -168,61 +175,128 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         directionsRequest.requestsAlternateRoutes = true
         directionsRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil))
         
-        directionsRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: possibleEnd, addressDictionary: nil))
+        directionsRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: middle, addressDictionary: nil))
         directions = MKDirections(request: directionsRequest)
         directions.calculateDirectionsWithCompletionHandler() { serverResponse, error in
-            if let response = serverResponse {
-                var bestMatch = Double.infinity
+            if let badStuff = error {
+                print(badStuff)
+                if (self.loadingPath) {
+                    let notice = UIAlertController(title: "Inaccurate Path", message: "A path of the desired distance could not be found. The closest path found is displayed. You may need to restart the app to use the 'Find Path' option again.", preferredStyle: .Alert)
+                    notice.addAction(UIAlertAction(title: "OK", style: .Default) { _ in
+                        self.loadPath(self.startRoute, returnRoute: self.bestRoute)
+                        })
+                    self.presentViewController(notice, animated: true, completion: nil)
+                }
+            } else if let response = serverResponse {
+                for route in response.routes {
+                        self.completePath(route, desiredLength: length, middle: directionsRequest.destination!, end: directionsRequest.source!)
+                }
+            }
+        }
+    }
+    
+    func completePath(firstHalf: MKRoute, desiredLength: Double, middle: MKMapItem, end: MKMapItem){
+        let directionsRequest = MKDirectionsRequest()
+        directionsRequest.source = middle
+        directionsRequest.destination = end
+        directionsRequest.requestsAlternateRoutes = true
+        directionsRequest.transportType = .Walking
+        let directions = MKDirections(request: directionsRequest)
+        if !self.loadingPath { return }
+        directions.calculateDirectionsWithCompletionHandler() { serverResponse, error in
+            if let badStuff = error {
+                print(badStuff)
+                if (self.loadingPath) {
+                    let notice = UIAlertController(title: "Inaccurate Path", message: "A path of the desired distance could not be found. The closest path found is displayed. You may need to restart the app to use the 'Find Path' option again.", preferredStyle: .Alert)
+                    notice.addAction(UIAlertAction(title: "OK", style: .Default) { _ in
+                        self.loadPath(firstHalf, returnRoute: self.bestRoute)
+                        })
+                    self.presentViewController(notice, animated: true, completion: nil)
+                }
+            } else if let response = serverResponse {
+                let currentLength = self.convertMetersToMiles(firstHalf.distance)
+                print("first half: \(currentLength)")
                 for route in response.routes {
                     let pathDistance = self.convertMetersToMiles(route.distance)
-                    print("path distance is: \(pathDistance)")
-                    let diff = length / 2 - pathDistance
-                    if (abs(diff) < abs(bestMatch)) {
-                        bestMatch = diff
+                    print("total: \(pathDistance + currentLength)")
+                    let diff = desiredLength - (currentLength + pathDistance)
+                    if diff > 0 && diff < self.bestPosMatch {
+                        self.bestPosMatch = diff
+                        if (self.bestPosMatch < abs(self.bestNegMatch)) {
+                            self.bestRoute = route
+                            self.startRoute = firstHalf
+                        }
+                    } else if diff < 0 && diff > self.bestNegMatch {
+                        self.bestNegMatch = diff
+                        if (abs(self.bestNegMatch) < self.bestPosMatch) {
+                            self.bestRoute = route
+                            self.startRoute = firstHalf
+                        }
                     }
                     
-                    if abs(diff) < 0.01 {
-                        self.loadedPath.pathLength = pathDistance
-                        let points = route.polyline.points()
-                        for point in points.stride(through: points.advancedBy(route.polyline.pointCount - 1), by: 1) {
-                            self.loadedPath.points.append(point.memory)
-                        }
-                        
-                        self.completePath(directionsRequest.destination!, home: directionsRequest.source!)
+                    if abs(diff) < desiredLength * 0.005 && self.loadingPath {
+                        self.loadPath(firstHalf, returnRoute: route)
                         return
                     }
                 }
+                
+                print("closest pos diff: \(self.bestPosMatch)")
+                print("closes neg diff: \(self.bestNegMatch)")
                 // try again with a better guess
-                self.findPath(length, possibleEnd: self.getPossibleDestination(possibleEnd, distance: bestMatch))
+                var moveDistance = (self.bestPosMatch + self.bestNegMatch) / 2
+                if self.bestPosMatch == Double.infinity {
+                    moveDistance = self.bestNegMatch / 4
+                } else if self.bestNegMatch == -Double.infinity {
+                    moveDistance = self.bestPosMatch / 4
+                }
+                
+                let newGuess = self.getPossibleDestination(middle.placemark.coordinate, distance: moveDistance)
+                self.findPath(desiredLength, start: end.placemark.coordinate, middle: newGuess)
             }
         }
     }
     
-    func completePath(halfway: MKMapItem, home: MKMapItem){
-        let directionsRequest = MKDirectionsRequest()
-        directionsRequest.source = halfway
-        directionsRequest.destination = home
-        let directions = MKDirections(request: directionsRequest)
-        directions.calculateDirectionsWithCompletionHandler() { serverResponse, error in
-            let route = serverResponse!.routes.first!
-            let pathDistance = self.convertMetersToMiles(route.distance)
-            self.loadedPath.pathLength += pathDistance
-            
-            let polyline = route.polyline
-            let points = polyline.points()
-            for point in points.stride(through: points.advancedBy(polyline.pointCount - 1), by: 1) {
-                self.loadedPath.points.append(point.memory)
-            }
-            print("total distance: \(self.loadedPath.pathLength)")
-            self.loadedDisplay = MKPolyline(points: &self.loadedPath.points, count: self.loadedPath.points.count)
-            self.savePath(self.loadedPath)
+    func loadPath(outRoute: MKRoute, returnRoute: MKRoute) {
+        if(!self.loadingPath || outRoute.polyline.pointCount == 0 || returnRoute.polyline.pointCount == 0) { return }
+        self.loadingPath = false
+        self.loadedPath.pathLength = convertMetersToMiles(outRoute.distance + returnRoute.distance)
+        let outPoints = outRoute.polyline.points()
+        for point in outPoints.stride(through: outPoints.advancedBy(outRoute.polyline.pointCount - 1), by: 1) {
+            self.loadedPath.points.append(point.memory)
         }
+        let returnPoints = returnRoute.polyline.points()
+        for point in returnPoints.stride(through: returnPoints.advancedBy(returnRoute.polyline.pointCount - 1), by: 1) {
+            self.loadedPath.points.append(point.memory)
+        }
+        
+        self.loadedDisplay = MKPolyline(points: &self.loadedPath.points, count: self.loadedPath.points.count)
+        self.savePath(self.loadedPath)
     }
     
     func getPossibleDestination(start: CLLocationCoordinate2D, distance: Double) -> CLLocationCoordinate2D {
-        let destinationLat = start.latitude + distance / 69.172 / 2
-        let centerLat = (start.latitude + destinationLat) / 2
-        let destinationLon = start.longitude + distance / (cos(centerLat) * 69.172) / 2
+        var destinationLat = 0.0
+        var destinationLon = 0.0
+        var centerLat = 0.0
+        switch (searchQuadrant % 4) {
+        case 0:
+            destinationLat = start.latitude + distance / 69.172 / 2
+            centerLat = (start.latitude + destinationLat) / 2
+            destinationLon = start.longitude - distance / (cos(centerLat) * 69.172) / 2
+        case 1:
+            destinationLat = start.latitude - distance / 69.172 / 2
+            centerLat = (start.latitude + destinationLat) / 2
+            destinationLon = start.longitude - distance / (cos(centerLat) * 69.172) / 2
+        case 2:
+            destinationLat = start.latitude - distance / 69.172 / 2
+            centerLat = (start.latitude + destinationLat) / 2
+            destinationLon = start.longitude + distance / (cos(centerLat) * 69.172) / 2
+        case 3:
+            destinationLat = start.latitude + distance / 69.172 / 2
+            centerLat = (start.latitude + destinationLat) / 2
+            destinationLon = start.longitude + distance / (cos(centerLat) * 69.172) / 2
+        default:
+            print("switch is exhausted")
+        }
         return CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLon)
     }
     
@@ -236,7 +310,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let calculateAction = UIAlertAction(title: "Calculate", style: .Default) {
             [weak findPathPrompt] (action) -> Void in
             let distance = Double(findPathPrompt!.textFields![0].text!)!
-            self.findPath(distance, possibleEnd: self.getPossibleDestination(self.currentLocation.coordinate, distance: distance))
+            self.loadingPath = true
+            self.bestNegMatch = -Double.infinity
+            self.bestPosMatch = Double.infinity
+            self.startRoute = MKRoute()
+            self.bestRoute = MKRoute()
+            self.findPath(distance, start: self.currentLocation.coordinate, middle: self.getPossibleDestination(self.currentLocation.coordinate, distance: distance / 2))
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         
