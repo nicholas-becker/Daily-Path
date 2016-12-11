@@ -12,12 +12,10 @@ import MapKit
 let myToken = "database token"
 let mySecret = "database secret"
 
-// TO DO
 enum Method: String {
-    // these are still from Trello and need to be changed
     case GET = ""
     case POST = "CREATE"
-    case PUT = "paths"
+    //case PUT = "paths"
     case DELETE = "DELETE/"
 }
 
@@ -36,7 +34,6 @@ enum PathError: ErrorType {
 
 struct PathAPI {
     private static let baseURLString = "https://blooming-everglades-93070.herokuapp.com/"
-    private static let APIKey = "database key"
     
     static func pathsFromJSONData(data: NSData) -> PathsResult {
         do {
@@ -109,18 +106,10 @@ struct PathAPI {
         }
     }
     
-    // Everything below needs to be updated once we know how to add stuff to Johns database
-    // TO DO
     private static func pathURL(method method: Method, urlString: String, parameters: [String:String]?) -> NSURL {
         let startString = baseURLString + method.rawValue + urlString
         let components = NSURLComponents(string: startString)!
         var queryItems = [NSURLQueryItem]()
-        //let baseParams = ["key": APIKey, "token": myToken]
-        
-        /*for (key, value) in baseParams {
-            let item = NSURLQueryItem(name: key, value: value)
-            queryItems.append(item)
-        }*/
         
         if let additionalParams = parameters {
             for (key, value) in additionalParams {
@@ -132,15 +121,15 @@ struct PathAPI {
         
         return components.URL!
     }
-    // TO DO
+
     static func GetPathsURL() -> NSURL {
         return pathURL(method: .GET, urlString: "", parameters: [:])
     }
-    // TO DO
+
     static func GetPathURL(path: Path) -> NSURL {
         return pathURL(method: .GET, urlString: "\(path.id)/", parameters: [:])
     }
-    // TO DO
+
     static func CreatePathURL(thePath: Path) -> NSURL {
         var pathPoints: String = ""
         var firstPoint = true
@@ -154,17 +143,17 @@ struct PathAPI {
         }
         return pathURL(method: .POST, urlString: "", parameters: ["path_name": thePath.pathName, "path_dist": thePath.pathLength.description, "points": pathPoints])
     }
-    // TO DO
+
     static func DeletePathURL(path: Path) -> NSURL {
         return pathURL(method: .DELETE, urlString: "\(path.id)/", parameters: [:])
     }
     
-    // TO DO
-    static func EditPathURL(name: String, desc: String, pathId: String) -> NSURL {
-        return pathURL(method: .PUT, urlString: "\(pathId)", parameters: ["name": name, "desc": desc, "due": "null"])
+    /*
+    static func EditPathURL(name: String, pathId: Int) -> NSURL {
+        return pathURL(method: .PUT, urlString: "\(pathId)", parameters: ["path_name": name])
     }
-    // TO DO
+
     static func MovePathURL(pathId: String, pos: String) -> NSURL {
         return pathURL(method: .PUT, urlString: "\(pathId)/pos?", parameters: ["pos": pos])
-    }
+    }*/
 }
